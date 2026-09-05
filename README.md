@@ -54,35 +54,94 @@ It combines a WordPress customer-facing interface with an AWS backend, PostgreSQ
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
-```text
-Customer
-   │
-   ▼
-WordPress Booking Interface
-   │
-   ▼
-AWS API Gateway
-   │
-   ▼
-AWS Lambda Backend
-   │
-   ├──► Aurora PostgreSQL
-   │
-   ├──► Stripe
-   │
-   ├──► Booking Fulfilment
-   │
-   ├──► Access Control
-   │
-   └──► Operational Alerts
+The platform separates the customer-facing WordPress interface from the booking backend and database. AWS services handle booking logic, persistence, payment processing, fulfilment, and operational reliability.
 
-Additional Interfaces
-   │
-   ├──► Admin Booking Dashboard
-   └──► Room / Table Tablet Interface
+```mermaid
+flowchart TB
+
+    Customer["👤 Customer"]
+    Staff["👨‍💼 Venue Staff"]
+    Tablet["🏓 Table Tablet"]
+
+    WP["🌐 WordPress / Elementor<br/>Booking Interface"]
+    Admin["📋 Admin Booking Dashboard"]
+    TabletUI["📱 Tablet Session Interface"]
+
+    API["☁️ Amazon API Gateway"]
+    Lambda["⚙️ AWS Lambda<br/>Booking Backend"]
+
+    DB[("🗄️ Amazon Aurora<br/>PostgreSQL")]
+    Secrets["🔐 AWS Secrets Manager"]
+    Queue["📨 Amazon SQS"]
+    Alerts["🔔 Amazon SNS"]
+
+    Stripe["💳 Stripe<br/>Payments"]
+    TTLock["🔑 TTLock<br/>Access Control"]
+    Make["🔄 Make.com<br/>Fulfilment Automation"]
+    MailerLite["✉️ MailerLite<br/>Customer Communication"]
+
+    Customer --> WP
+    Staff --> Admin
+    Tablet --> TabletUI
+
+    WP --> API
+    Admin --> API
+    TabletUI --> API
+
+    API --> Lambda
+
+    Lambda --> DB
+    Lambda --> Secrets
+    Lambda --> Stripe
+    Lambda --> Queue
+    Lambda --> Alerts
+
+    Queue --> Make
+    Make --> TTLock
+    Make --> MailerLite
+
+    Stripe -->|Payment events| API
 ```
+
+### Main Responsibilities
+
+**WordPress**
+
+- Customer booking experience
+- Administration interface
+- Venue tablet interfaces
+
+**AWS Backend**
+
+- Availability validation
+- Booking holds
+- Pricing and booking rules
+- Booking confirmation
+- Session extensions
+- Idempotency and duplicate protection
+- Administrative API operations
+
+**Aurora PostgreSQL**
+
+- Persistent booking and session data
+- Booking status and fulfilment state
+
+**Stripe**
+
+- Secure customer payments
+- Payment-event driven booking confirmation
+
+**SQS & Make.com**
+
+- Asynchronous fulfilment
+- Access-code generation
+- Customer communication
+
+**SNS**
+
+- Operational alerts for backend failures and important system events
 
 ✨ Core Features
 Booking Availability
