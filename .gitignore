@@ -1,0 +1,37 @@
+```gitignore
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# AWS local/generated files
+.cdk.staging/
+cdk.out/
+
+# Secrets
+secrets.json
+credentials.json
