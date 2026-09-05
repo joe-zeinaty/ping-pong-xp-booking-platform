@@ -251,9 +251,47 @@ ping-pong-xp-booking-platform/
 
 The repository contains selected and sanitized examples from the wider production system.
 
-📸 Screenshots
+## 📸 Screenshots
 
-Screenshots of the booking flow, tablet interface, and administration interface will be added here.
+### Customer Booking Interface
+
+The customer-facing booking flow allows users to select a date, session duration, and available time before proceeding to payment, tables are assigned automatically based on availability.
+
+![Ping Pong XP Booking Interface 1st Step](docs/screenshots/booking-interface.png)
+![Ping Pong XP Booking Interface 2nd Step](docs/screenshots/booking-interface-2.png)
+
+---
+
+### Booking Confirmation
+
+After successful payment and fulfilment, the customer receives confirmation of their reservation and access information.
+
+![Ping Pong XP Booking Confirmation](docs/screenshots/booking-confirmation.png)
+
+---
+
+### Tablet Session Interface
+
+Each table uses a dedicated tablet interface for session management, countdown timing, player scoring, and match tracking.
+
+![Ping Pong XP Tablet Interface](docs/screenshots/tablet-session.png)
+
+---
+
+### Session Extension
+
+Near the end of a session, the system checks future availability and can offer additional playing time without overlapping an upcoming reservation.
+
+![Ping Pong XP Session Extension Available](docs/screenshots/extension-interface-available.png)
+![Ping Pong XP Session Extension Unavailable](docs/screenshots/extension-interface-unavailable.png)
+
+---
+
+### Admin Booking Dashboard
+
+Venue staff can view booking records and filter reservations by booking status through a protected administration interface.
+
+![Ping Pong XP Admin Dashboard](docs/screenshots/admin-dashboard-extended.png)
 
 📌 Project Status
 
